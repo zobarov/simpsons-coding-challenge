@@ -1,0 +1,17 @@
+server:
+  port: 8083
+  
+spring:
+  application:
+    name:  simpsons
+  profiles:
+    active: 'local'
+  
+#ENDPOINTS:
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - 'health'
+        - 'info'
