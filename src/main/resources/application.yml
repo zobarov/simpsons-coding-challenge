@@ -6,6 +6,11 @@ spring:
     name:  simpsons
   profiles:
     active: 'local'
+    
+data:
+  folder: classpath:./data
+  characters: characters.json
+  phrases: phrases.json
   
 #ENDPOINTS:
 management:

@@ -1,18 +1,26 @@
 package com.awg.j20.simpsons.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CartoonCharacter {
+	@JsonProperty("_id")
 	private String dbId;
-	private String id;
+	private String key;
 	private String firstName;
 	private String lastName;
+	@JsonProperty("picture")
 	private String pictureUrl;
 	private int age;
-
-	public String getId() {
-		return id;
+	
+	public String dbId() {
+		return dbId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String id) {
+		this.key = id;
 	}
 	public String getFirstName() {
 		return firstName;

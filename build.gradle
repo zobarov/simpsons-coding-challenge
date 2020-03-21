@@ -35,6 +35,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
 	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 	compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+	compile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.10.1")
 	
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
 	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")

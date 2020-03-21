@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.Environment;
 
+import com.awg.j20.simpsons.persist.CartoonDatastore;
+import com.awg.j20.simpsons.srv.FileLoader;
+
 /**
  * Main application entry point
  */
@@ -20,6 +23,11 @@ public class SimpsonsApplication implements CommandLineRunner {
 	private Logger logger = LoggerFactory.getLogger("SimpsonsApplication");
 	@Autowired
     private Environment env;
+	
+	@Autowired
+	private FileLoader fileLoader;
+	@Autowired
+	private CartoonDatastore datastore;
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(SimpsonsApplication.class)
@@ -34,5 +42,11 @@ public class SimpsonsApplication implements CommandLineRunner {
 		
 		logger.info("Active Mode: " + env.getProperty("spring.application.name"));		
 		logger.info("Active Profiles: " + Arrays.toString(env.getActiveProfiles()));
+		
+		//fileLoader.loadCharacters();
+		//fileLoader.loadPhrases();
+		
+		int count = datastore.loadAsBabblers(fileLoader.loadCharacters(), fileLoader.loadPhrases());
+		logger.info("Cartoon datastore initialized for : " + count + " babblers.");
 	}
 }
