@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Simpsons Phrases App</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+
+	<div class="container" style="min-height: 600px">
+
+		<div class="starter-template">
+			<h1>Simpsons Phrases App</h1>
+
+			<div class="form-horizontal" id="characters-form">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" id="bth-addcharacter"
+							class="btn btn-primary btn-lg">Add Character</button>
+					</div>
+				</div>
+				<div class="form-group form-group-lg">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">FirstName</th>
+								<th scope="col">LastName</th>
+								<th scope="col">Picture</th>
+								<th scope="col">Age</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${allCharacters.empty}">
+								<td colspan="2">No Characters Available</td>
+							</tr>
+							<tr th:each="character : ${allCharacters}" scope="row">
+							    <td><span th:text="${character.key}"> Key </span></td>
+								<td><span th:text="${character.firstName}"> FirstName </span></td>
+								<td><span th:text="${character.lastName}"> LastName </span></td>
+								<td><span th:text="${character.pictureUrl}"> Picture </span></td>
+								<td><span th:text="${character.age}"> Age </span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="border-top divider"></div>
+			<br />
+			<div class="border-top divider"></div>
+			<br />
+
+			<form class="form-horizontal" id="phrases-form">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" id="bth-search"
+							class="btn btn-primary btn-lg">Add a phrase</button>
+					</div>
+				</div>
+				<div class="form-group form-group-lg">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Phrase</th>
+							</tr>
+						</thead>
+						<tbody>
+					<!--  		<tr th:if="${characterPhrases.empty}">
+								<td colspan="2">No Character's Phrases Available</td>
+							</tr>
+					-->
+							<tr th:each="ph : ${characterPhrases}" scope="row">
+							    <td><span th:text="${ph.phrase}"> Phrase </span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				
+			</form>
+
+		</div>
+
+	</div>
+
+	<div class="container">
+		<footer>
+			<p>Author: Alex W Gera</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

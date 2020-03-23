@@ -28,10 +28,5 @@ public class CharacterController {
 	public CartoonCharacter findCharacter(@PathVariable(value="characterId", required = true)String characterId) {
 		return characterService.characterByKey(characterId);
 	}
-	
-	@GetMapping(value="/{characterId}/phrases", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CartoonPhrase> findBabbler(@PathVariable(value="characterId", required = true)String characterId) {
-		return characterService.phrasesForCharacter(characterId);
-	}
 
 }
