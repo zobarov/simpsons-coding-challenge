@@ -22,6 +22,7 @@ public class CartoonDatastore {
 	private Logger logger = LoggerFactory.getLogger("CartoonDatastore");
 	
 	private Map<String, CartoonBabbler> babblers = new HashMap<>();
+	private int lastIndex = 0;
 	
 	public int loadAsBabblers(List<CartoonCharacter> characters, List<CartoonPhrase> phrases) {
 		logger.info("Loading " + characters.size() + " characters and " + phrases.size() + " phrases...");
@@ -41,8 +42,9 @@ public class CartoonDatastore {
 			
 			characterKey++;
 		}
-		
+		lastIndex += characterKey;
 		return characterKey;
+		
 		
 	}
 	
@@ -61,6 +63,14 @@ public class CartoonDatastore {
 		}
 		
 		return characters;
+	}
+	
+	public boolean addCharacter(CartoonCharacter character) {
+		int key = ++lastIndex;
+		character.setKey(Integer.toString(key)); //TODO: make it smarter
+		
+		CartoonBabbler babbler = CartoonBabbler.createBabbler(character, null);
+		return babblers.put(character.getKey(), babbler) != null;
 	}
 	
 

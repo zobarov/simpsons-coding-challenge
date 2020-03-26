@@ -6,8 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
 </head>
 <body>
+
+
+
 
 	<div class="container" style="min-height: 600px">
 
@@ -17,10 +23,15 @@
 			<div class="form-horizontal" id="characters-form">
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" id="bth-addcharacter"
-							class="btn btn-primary btn-lg">Add Character</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCharacterDialog">
+  							Add Character
+						</button>
 					</div>
 				</div>
+	
+	
+				
+				
 				<div class="form-group form-group-lg">
 					<table class="table">
 						<thead>
@@ -42,6 +53,9 @@
 								<td><span th:text="${character.lastName}"> LastName </span></td>
 								<td><span th:text="${character.pictureUrl}"> Picture </span></td>
 								<td><span th:text="${character.age}"> Age </span></td>
+								<td><button type="button" class="btn btn-primary btn-sm">Phrases</button></td>
+								<td><button type="button" class="btn btn-primary btn-sm">Edit</button></td>
+								<td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -56,7 +70,7 @@
 			<form class="form-horizontal" id="phrases-form">
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" id="bth-search"
+						<button type="submit" id="bth-add-phrase"
 							class="btn btn-primary btn-lg">Add a phrase</button>
 					</div>
 				</div>
@@ -85,6 +99,45 @@
 		</div>
 
 	</div>
+	
+<!-- Add Character Modal -->
+<div class="modal fade" id="addCharacterDialog" tabindex="-1" role="dialog" aria-labelledby="addCharacterDialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCharacterLabel">Adding a New Character</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="addChar-firstname" class="col-form-label">Firstname:</label>
+            <input type="text" class="form-control" id="addChar-firstname">
+          </div>
+          <div class="form-group">
+            <label for="addChar-lastname" class="col-form-label">Lastname:</label>
+            <input type="text" class="form-control" id="addChar-lastname">
+          </div>
+          <div class="form-group">
+            <label for="addChar-picture" class="col-form-label">Picture URL:</label>
+            <input type="text" class="form-control" id="addChar-picture">
+          </div>
+          <div class="form-group">
+            <label for="addChar-age" class="col-form-label">Age:</label>
+            <input type="text" class="form-control" id="addChar-age">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="addCharacter-btn">Add Character</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
 
 	<div class="container">
 		<footer>
@@ -93,7 +146,44 @@
 	</div>
 
 	<script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+<!-- AJAX LOGIN (POST) -->
+<script type="text/javascript">
+$(document).ready(function() {
+	var self = this;
+    var form = $(this);
+
+	$('#addCharacter-btn').click(function(event) {
+						
+		event.preventDefault();
+		var pFirstName = $("#addChar-firstname").val();
+ 		var pLastNameName = $("#addChar-lastname").val();
+ 		var pPicture = $("#addChar-picture").val();
+ 		var pAge = $("#addChar-age").val();
+			
+		$.ajax({
+				
+			type : "POST",
+			url : "/characters/", 
+			data : "firstName=" + pFirstName + "&lastName=" + pLastNameName + "&pictureUrl=" + pPicture + "&age=" + pAge ,
+			success : function(response) {					
+				if(response.status == 'FAIL') {
+					showFormError(response.errorMessageList);
+				} else {
+					//everything is O.K. user logged in successfully.
+					$('#addCharacterDialog').modal('hide');
+ 						window.location.reload();
+					}
+			},
+			error : function(ex) {
+				console.log(ex);
+			}
+		});
+	});
+});
+</script>
 
 </body>
 </html>

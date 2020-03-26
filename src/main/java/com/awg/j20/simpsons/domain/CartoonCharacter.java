@@ -47,6 +47,17 @@ public class CartoonCharacter {
 		this.age = age;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("CharacterCartoon: {");
+		sb.append("firstname:").append(firstName)
+		  .append(",lastname:").append(lastName)
+		  .append(",picture:").append(pictureUrl)
+		  .append(",age:").append(age)
+		  .append("}");
+		return sb.toString();
+	}
+	
 	
 
 }

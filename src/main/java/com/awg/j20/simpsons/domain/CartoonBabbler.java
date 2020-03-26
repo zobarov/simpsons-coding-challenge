@@ -1,6 +1,7 @@
 package com.awg.j20.simpsons.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CartoonBabbler {
@@ -15,8 +16,8 @@ public class CartoonBabbler {
 		instance.character = character;
 		instance.phrases = new ArrayList<>();
 		
-		for(CartoonPhrase phrase : phrases) {
-			instance.phrases.add(phrase);
+		if(phrases != null) {
+			instance.phrases.addAll(phrases);
 		}
 		return instance;
 	}

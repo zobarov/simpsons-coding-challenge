@@ -20,8 +20,7 @@ public class CharacterService {
 	private CartoonDatastore datastore;
 	
 	public List<CartoonCharacter> allCharacters() {
-		return datastore.listAllCharacters();
-		
+		return datastore.listAllCharacters();		
 	}
 	
 	public CartoonCharacter characterByKey(String key) {
@@ -38,6 +37,10 @@ public class CharacterService {
 		logger.info("Found babbler by key " + key + " with " + babbler.phrases().size());
 		
 		return babbler.phrases();
+	}
+	
+	public boolean addCharacter(CartoonCharacter character) {
+		return datastore.addCharacter(character);
 	}
 
 }
